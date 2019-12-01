@@ -55,14 +55,21 @@ namespace comp110_worksheet_7
         public static int GetDepth(string directory)
         {
             var directories = Directory.GetDirectories(directory);
+            int maxDepth = 0;
+            int depth = 0;
             if (directories.Length != 0)
             {
                 foreach (var dir in directories)
                 {
-                    return GetDepth(dir) + 1;
+                    depth += GetDepth(dir) + 1;
+                    if (depth > maxDepth)
+                    {
+                        maxDepth = depth;
+                    }
+                    return maxDepth;
                 }
             }
-            return 0;
+            return maxDepth;
         }
 
         // Get the path and size (in bytes) of the smallest file below the given directory
@@ -74,6 +81,7 @@ namespace comp110_worksheet_7
             {
                 var files = Directory.GetFiles(directory, "*", SearchOption.AllDirectories);
                 smallestFile = GetFileSize(files[0]);
+                smallestFilePath = files[0];
                 foreach (var file in files)
                 {
                     if (GetFileSize(file) < smallestFile)
@@ -96,6 +104,7 @@ namespace comp110_worksheet_7
             {
                 var files = Directory.GetFiles(directory, "*", SearchOption.AllDirectories);
                 largestFile = GetFileSize(files[0]);
+                largestFilePath = files[0];
                 foreach (var file in files)
                 {
                     if (GetFileSize(file) > largestFile)
