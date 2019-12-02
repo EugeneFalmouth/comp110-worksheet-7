@@ -42,7 +42,7 @@ namespace comp110_worksheet_7
             string[] files;
             if (IsDirectory(directory))
             {
-                files = Directory.GetFiles(directory, "*", SearchOption.TopDirectoryOnly);
+                files = Directory.GetFiles(directory, "*", SearchOption.AllDirectories);
                 return files.Length;
             }
             else
